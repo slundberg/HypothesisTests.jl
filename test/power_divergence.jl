@@ -54,9 +54,9 @@ show(IOBuffer(), m)
 m = ChisqTest(d)
 m = MultinomialLRT(d)
 
-ci(m, method = :bootstrap) 
-ci(m, method = :bootstrap, tail=:left) 
-ci(m, method = :bootstrap, tail=:right) 
+ci(m, method = :bootstrap)
+ci(m, method = :bootstrap, tail=:left)
+ci(m, method = :bootstrap, tail=:right)
 
 ci(m, method = :gold)
 ci(m, method = :gold, tail=:left)
@@ -73,7 +73,7 @@ ci(m, method = :sison_glaz, tail=:right)
 
 @test_throws ArgumentError ci(m, method=:FOO)
 @test_throws ArgumentError ci(m, tail=:fox)
- 
+
 
 
 
@@ -92,7 +92,7 @@ c0 = [(0.04999999999999999,0.5833301356192295),(0.0,0.49999680228589616),(0.1333
 [ @test_approx_eq c[i][2] c0[i][2] for i in 1:length(c)]
 
 @test_approx_eq pvalue(m) 0.2865047968601901
-@test_approx_eq m.stat 2.5 
+@test_approx_eq m.stat 2.5
 @test_approx_eq m.df 2
 @test_approx_eq m.n 60
 @test_approx_eq m.residuals [0.0,-1.118033988749895,1.118033988749895]
@@ -126,9 +126,9 @@ show(IOBuffer(), m)
 m = ChisqTest(d)
 m = MultinomialLRT(d)
 
-ci(m, method = :bootstrap) 
-ci(m, method = :bootstrap, tail=:left) 
-ci(m, method = :bootstrap, tail=:right) 
+ci(m, method = :bootstrap)
+ci(m, method = :bootstrap, tail=:left)
+ci(m, method = :bootstrap, tail=:right)
 
 ci(m, method = :gold)
 ci(m, method = :gold, tail=:left)
@@ -164,3 +164,5 @@ ChisqTest(x,y,(1:3,1:3))
 MultinomialLRT(x,y,3)
 MultinomialLRT(x,y,(1:3,1:3))
 
+# ensure that large counts don't needlessly cause overflows
+PowerDivergenceTest([432 11605; 8595 281256], lambda=1.0)
